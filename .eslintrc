@@ -1,5 +1,14 @@
 {
 	"root": true,
 
-	"extends": "@ljharb"
+	"extends": "@ljharb",
+
+	"rules": {
+		"id-length": 0,
+		"max-nested-callbacks": [2, 4],
+		"max-params": [2, 4],
+		"no-invalid-this": 0,
+		"no-magic-numbers": 0,
+		"no-shadow": 1
+	}
 }
