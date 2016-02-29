@@ -12,6 +12,22 @@
 	],
 	"main": "index.js",
 	"scripts": {
+		"pretest": "npm run --silent lint",
+		"test": "npm run --silent tests-only",
+		"tests-only": "npm run --silent tape | faucet && npm run --silent mocha1 && npm run --silent mocha2",
+		"lint": "eslint '**/*.js'",
+		"tape": "node test",
+		"mocha": "mocha test/mocha",
+		"install:mocha1.1": "npm install mocha@1.1.0 && mocha --version",
+		"install:mocha1.x": "npm install mocha@1.x && mocha --version",
+		"install:mocha2.0": "npm install mocha@2.0.0 && mocha --version",
+		"install:mocha2.x": "npm install mocha@2.x && mocha --version",
+		"mocha1.1": "npm run --silent install:mocha1.1 && npm run --silent mocha -- --ignore-leaks",
+		"mocha1.x": "npm run --silent install:mocha1.x && npm run --silent mocha -- --ignore-leaks",
+		"mocha2.0": "npm run --silent install:mocha2.0 && npm run --silent mocha",
+		"mocha2.x": "npm run --silent install:mocha2.x && npm run --silent mocha",
+		"mocha1": "npm run --silent mocha1.1 && npm run --silent mocha1.x",
+		"mocha2": "npm run --silent mocha2.0 && npm run --silent mocha2.x"
 	},
 	"repository": {
 		"type": "git",
@@ -54,9 +70,13 @@
 		"function.prototype.name": "^1.0.0"
 	},
 	"peerDependencies": {
-		"mocha": "^1.0.0 || ^2.0.0"
+		"mocha": "^1.1.0 || ^2.0.0"
 	},
 	"devDependencies": {
+		"tape": "^4.4.0",
+		"faucet": "^0.0.1",
+		"eslint": "^2.2.0",
+		"@ljharb/eslint-config": "^2.1.1"
 	},
 	"engines": {
 		"node": ">= 0.4"
