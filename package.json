@@ -14,6 +14,7 @@
 	"scripts": {
 		"pretest": "npm run --silent lint",
 		"test": "npm run --silent tests-only",
+		"posttest": "npm run --silent cover",
 		"tests-only": "npm run --silent tape | faucet && npm run --silent mocha1 && npm run --silent mocha2",
 		"lint": "eslint '**/*.js'",
 		"tape": "node test",
@@ -27,7 +28,12 @@
 		"mocha2.0": "npm run --silent install:mocha2.0 && npm run --silent mocha",
 		"mocha2.x": "npm run --silent install:mocha2.x && npm run --silent mocha",
 		"mocha1": "npm run --silent mocha1.1 && npm run --silent mocha1.x",
-		"mocha2": "npm run --silent mocha2.0 && npm run --silent mocha2.x"
+		"mocha2": "npm run --silent mocha2.0 && npm run --silent mocha2.x",
+		"cover": "npm run --silent cover:tape && npm run --silent cover:mocha && npm run --silent cover:merge && npm run --silent cover:check",
+		"cover:check": "istanbul check-coverage",
+		"cover:merge": "node bin/merge-coverage && istanbul report --format html",
+		"cover:tape": "istanbul cover test/index.js --dir coverage/tape",
+		"cover:mocha": "istanbul cover ./node_modules/.bin/_mocha --dir coverage/mocha -- test/mocha --recursive --reporter=min"
 	},
 	"repository": {
 		"type": "git",
@@ -76,7 +82,9 @@
 		"tape": "^4.4.0",
 		"faucet": "^0.0.1",
 		"eslint": "^2.2.0",
-		"@ljharb/eslint-config": "^2.1.1"
+		"@ljharb/eslint-config": "^2.1.1",
+		"istanbul": "1.0.0-alpha.2",
+		"istanbul-lib-coverage": "^1.0.0-alpha.4"
 	},
 	"engines": {
 		"node": ">= 0.4"

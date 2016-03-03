@@ -16,8 +16,8 @@ var withOverrides = require('./withOverrides');
 var withGlobal = require('./withGlobal');
 
 var hasPrivacy = typeof WeakMap === 'function';
-var wrapperMap = hasPrivacy ? new WeakMap() : null;
-var descriptionMap = hasPrivacy ? new WeakMap() : null;
+var wrapperMap = hasPrivacy ? new WeakMap() : /* istanbul ignore next */ null;
+var descriptionMap = hasPrivacy ? new WeakMap() : /* istanbul ignore next */ null;
 
 var supportedMethods = ['before', 'beforeEach', 'after', 'afterEach'];
 
@@ -32,6 +32,7 @@ var checkThis = function requireMochaWrapper(instance) {
 
 var setThisWrappers = function (instance, value) {
 	checkThis(instance);
+	/* istanbul ignore else */
 	if (hasPrivacy) {
 		wrapperMap.set(instance, value);
 	} else {
@@ -42,11 +43,12 @@ var setThisWrappers = function (instance, value) {
 
 var getThisWrappers = function (instance) {
 	checkThis(instance);
-	return hasPrivacy ? wrapperMap.get(instance) : instance.wrappers;
+	return hasPrivacy ? wrapperMap.get(instance) : /* istanbul ignore next */ instance.wrappers;
 };
 
 var setThisDescription = function (instance, value) {
 	checkThis(instance);
+	/* istanbul ignore else */
 	if (hasPrivacy) {
 		descriptionMap.set(instance, value);
 	} else {
@@ -56,7 +58,7 @@ var setThisDescription = function (instance, value) {
 };
 var getThisDescription = function (instance) {
 	checkThis(instance);
-	return hasPrivacy ? descriptionMap.get(instance) : instance.description;
+	return hasPrivacy ? descriptionMap.get(instance) : /* istanbul ignore next */ instance.description;
 };
 
 MochaWrapper = function MochaWrapper() {
@@ -131,7 +133,7 @@ var isWithNameAvailable = function (name) {
 	return !has(MochaWrapper.prototype, name) || !isCallable(MochaWrapper.prototype[name]);
 };
 
-wrap.supportedMethods = Object.freeze ? Object.freeze(supportedMethods) : supportedMethods.slice();
+wrap.supportedMethods = isCallable(Object.freeze) ? Object.freeze(supportedMethods) : /* istanbul ignore next */ supportedMethods.slice();
 
 MochaWrapper.prototype.extend = function extend(description, descriptor) {
 	checkThis(this);

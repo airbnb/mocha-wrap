@@ -17,6 +17,7 @@ module.exports = function withOverrides(object, overrides) {
 				var value = entry[1];
 				if (has(object, key)) {
 					objectHadOwn[key] = true;
+					/* istanbul ignore else */
 					if (supportsDescriptors) {
 						overriddenDescriptor[key] = Object.getOwnPropertyDescriptor(object, key);
 					} else {
@@ -30,6 +31,7 @@ module.exports = function withOverrides(object, overrides) {
 			forEach(overridePairs, function (entry) {
 				var key = entry[0];
 				if (objectHadOwn[key]) {
+					/* istanbul ignore else */
 					if (overriddenDescriptor[key]) {
 						Object.defineProperty(object, key, overriddenDescriptor[key]);
 					} else {
