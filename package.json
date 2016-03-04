@@ -1,6 +1,6 @@
 {
 	"name": "mocha-wrap",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Fluent pluggable interface for easily wrapping `describe` and `it` blocks in Mocha tests.",
 	"author": "Jordan Harband <ljharb@gmail.com>",
 	"contributors": [
