@@ -90,11 +90,12 @@ var flattenToDescriptors = function flattenToDescriptors(wrappers) {
 };
 
 var createAssertion = function createAssertion(type, message, wrappers, block) {
-	var describeMsg = 'wrapped:';
+	var describeMsgs = [];
 	forEach(wrappers, function (wrapper) {
 		checkThis(wrapper);
-		describeMsg += ' ' + getThisDescription(wrapper) + ';';
+		describeMsgs.push(getThisDescription(wrapper));
 	});
+	var describeMsg = 'wrapped: ' + describeMsgs.join('; ') + ':';
 	var describeMethod = global.describe;
 	describeMethod(describeMsg, function () {
 		var descriptors = flattenToDescriptors(wrappers);
