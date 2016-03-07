@@ -128,6 +128,11 @@ MochaWrapper.prototype.describe = function describe(msg, fn) {
 	createAssertion('describe', msg, wrappers, fn);
 };
 
+MochaWrapper.prototype.context = function context(msg, fn) {
+	var wrappers = getThisWrappers(checkThis(this));
+	createAssertion('context', msg, wrappers, fn);
+};
+
 var wrap = function wrap() { return new MochaWrapper(); };
 
 var isWithNameAvailable = function (name) {

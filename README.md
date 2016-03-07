@@ -10,7 +10,7 @@
 
 [![browser support][9]][10]
 
-Fluent pluggable interface for easily wrapping `describe` and `it` blocks in Mocha tests.
+Fluent pluggable interface for easily wrapping `describe`, `context`, and `it` blocks in Mocha tests.
 
 ## Example
 

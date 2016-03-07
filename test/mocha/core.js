@@ -21,8 +21,10 @@ describe('core MochaWrapper semantics', function () {
 			return { description: 'i am pointless' };
 		};
 
-		wrap().use(withDescriptor).it('accepts a plugin that returns a descriptor', function () {
-			assert.equal(flag, true);
+		wrap().use(withDescriptor).context('with a plugin that returns a descriptor', function () {
+			it('works', function () {
+				assert.equal(flag, true);
+			});
 		});
 
 		wrap().use(withNothing).it('works with a plugin that returns a descriptor with only a description', function () {
