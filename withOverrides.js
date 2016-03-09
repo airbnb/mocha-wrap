@@ -2,10 +2,17 @@
 
 var entries = require('object.entries');
 var has = require('has');
+var isObject = require('is-object');
 var forEach = require('for-each');
 var supportsDescriptors = require('define-properties').supportsDescriptors;
 
 module.exports = function withOverrides(object, overrides) {
+	if (!isObject(object)) {
+		throw new TypeError('can not override on a non-object');
+	}
+	if (!isObject(overrides)) {
+		throw new TypeError('can not override without an object from which to get overrides');
+	}
 	var objectHadOwn = {};
 	var overriddenDescriptor = {};
 	var overriddenValue = {};

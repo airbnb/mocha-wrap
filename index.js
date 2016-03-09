@@ -13,6 +13,7 @@ var inspect = require('object-inspect');
 var checkWithName = require('./helpers/checkWithName');
 
 var withOverrides = require('./withOverrides');
+var withOverride = require('./withOverride');
 var withGlobal = require('./withGlobal');
 
 var hasPrivacy = typeof WeakMap === 'function';
@@ -200,6 +201,7 @@ wrap.unregister = function unregister(pluginOrWithName) {
 };
 
 wrap.register(withOverrides);
+wrap.register(withOverride);
 wrap.register(withGlobal);
 
 module.exports = wrap;

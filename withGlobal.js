@@ -3,7 +3,7 @@
 var isString = require('is-string');
 var isSymbol = require('is-symbol');
 var inspect = require('object-inspect');
-var withOverrides = require('./withOverrides');
+var withOverride = require('./withOverride');
 
 module.exports = function withGlobal(globalName, value) {
 	var isNonEmptyString = isString(globalName) && globalName.length > 0;
@@ -11,7 +11,5 @@ module.exports = function withGlobal(globalName, value) {
 		throw new TypeError('global name must be a non-empty string or a Symbol');
 	}
 
-	var overrides = {};
-	overrides[globalName] = value;
-	return this.use(withOverrides, global, overrides).extend('with global: ' + inspect(globalName));
+	return this.use(withOverride, global, globalName, value).extend('with global: ' + inspect(globalName));
 };

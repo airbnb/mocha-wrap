@@ -6,6 +6,8 @@ var test = require('tape');
 
 var wrap = require('../');
 var withGlobal = require('../withGlobal');
+var withOverrides = require('../withOverrides');
+var withOverride = require('../withOverride');
 
 var hasPrivacy = typeof WeakMap === 'function';
 
@@ -211,6 +213,32 @@ test('withGlobal', function (t) {
 		st['throws'](function () { withGlobal(/a/g); }, TypeError, 'regex is not a string or Symbol');
 		st['throws'](function () { withGlobal([]); }, TypeError, 'array is not a string or Symbol');
 		st['throws'](function () { withGlobal({}); }, TypeError, 'object is not a string or Symbol');
+		st.end();
+	});
+
+	t.end();
+});
+
+test('withOverrides', function (t) {
+	t.test('exceptions', function (st) {
+		st['throws'](withOverrides, TypeError, 'requires an object to override');
+		st['throws'](function () { withOverrides({}); }, TypeError, 'requires an object to override with');
+		st.end();
+	});
+
+	t.end();
+});
+
+test('withOverride', function (t) {
+	t.test('exceptions', function (st) {
+		st['throws'](function () { withOverride(null, 'foo'); }, TypeError, 'requires an object');
+		st['throws'](function () { withOverride({}); }, TypeError, 'undefined is not a string or Symbol');
+		st['throws'](function () { withOverride({}, null); }, TypeError, 'null is not a string or Symbol');
+		st['throws'](function () { withOverride({}, true); }, TypeError, 'true is not a string or Symbol');
+		st['throws'](function () { withOverride({}, 42); }, TypeError, '42 is not a string or Symbol');
+		st['throws'](function () { withOverride({}, /a/g); }, TypeError, 'regex is not a string or Symbol');
+		st['throws'](function () { withOverride({}, []); }, TypeError, 'array is not a string or Symbol');
+		st['throws'](function () { withOverride({}, {}); }, TypeError, 'object is not a string or Symbol');
 		st.end();
 	});
 
