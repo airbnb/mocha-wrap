@@ -165,17 +165,35 @@ MochaWrapper.prototype.it = function it(msg, fn) {
 	var mode = getThisMode(this);
 	createAssertion('it', msg, wrappers, fn, mode);
 };
+MochaWrapper.prototype.it.skip = function skip() {
+	throw new SyntaxError('mocha-wrap requires `.skip().it` rather than `it.skip`');
+};
+MochaWrapper.prototype.it.only = function only() {
+	throw new SyntaxError('mocha-wrap requires `.only().it` rather than `it.only`');
+};
 
 MochaWrapper.prototype.describe = function describe(msg, fn) {
 	var wrappers = getThisWrappers(checkThis(this));
 	var mode = getThisMode(this);
 	createAssertion('describe', msg, wrappers, fn, mode);
 };
+MochaWrapper.prototype.describe.skip = function skip() {
+	throw new SyntaxError('mocha-wrap requires `.skip().describe` rather than `describe.skip`');
+};
+MochaWrapper.prototype.describe.only = function only() {
+	throw new SyntaxError('mocha-wrap requires `.only().describe` rather than `describe.only`');
+};
 
 MochaWrapper.prototype.context = function context(msg, fn) {
 	var wrappers = getThisWrappers(checkThis(this));
 	var mode = getThisMode(this);
 	createAssertion('context', msg, wrappers, fn, mode);
+};
+MochaWrapper.prototype.context.skip = function skip() {
+	throw new SyntaxError('mocha-wrap requires `.skip().context` rather than `context.skip`');
+};
+MochaWrapper.prototype.context.only = function only() {
+	throw new SyntaxError('mocha-wrap requires `.only().context` rather than `context.only`');
 };
 
 var wrap = function wrap() { return new MochaWrapper(); };

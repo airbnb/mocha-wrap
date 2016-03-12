@@ -34,9 +34,22 @@ test('mocha-wrap', function (t) {
 	setup();
 	t.on('end', teardown);
 
-	t['throws'](function () { wrap().describe('foo', function () {}); }, RangeError, 'throws when there are no transformations');
-	t['throws'](function () { wrap().context('foo', function () {}); }, RangeError, 'throws when there are no transformations');
-	t['throws'](function () { wrap().it('foo', function () {}); }, RangeError, 'throws when there are no transformations');
+	t.test('no transformations', function (st) {
+		st['throws'](function () { wrap().describe('foo', function () {}); }, RangeError, 'throws when there are no transformations');
+		st['throws'](function () { wrap().context('foo', function () {}); }, RangeError, 'throws when there are no transformations');
+		st['throws'](function () { wrap().it('foo', function () {}); }, RangeError, 'throws when there are no transformations');
+		st.end();
+	});
+
+	t.test('{describe,context,it}.{skip,only} throw', function (st) {
+		st['throws'](function () { wrap().describe.skip('skip'); }, SyntaxError, 'describe.skip throws');
+		st['throws'](function () { wrap().describe.only('only'); }, SyntaxError, 'describe.only throws');
+		st['throws'](function () { wrap().context.skip('skip'); }, SyntaxError, 'context.skip throws');
+		st['throws'](function () { wrap().context.only('only'); }, SyntaxError, 'context.only throws');
+		st['throws'](function () { wrap().it.skip('skip'); }, SyntaxError, 'it.skip throws');
+		st['throws'](function () { wrap().it.only('only'); }, SyntaxError, 'it.only throws');
+		st.end();
+	});
 
 	t.test('.supportedMethods', function (st) {
 		st.equal(Array.isArray(wrap.supportedMethods), true, 'is an array');
