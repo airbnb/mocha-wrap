@@ -20,7 +20,7 @@
 		"pretest": "npm run --silent lint",
 		"test": "npm run --silent tests-only",
 		"posttest": "npm run --silent cover",
-		"tests-only": "npm run --silent tape | faucet && npm run --silent mocha1 && npm run --silent mocha2",
+		"tests-only": "parallelshell 'npm run --silent tape | faucet' 'npm run --silent mocha1 && npm run --silent mocha2'",
 		"lint": "eslint '**/*.js'",
 		"tape": "node test/tape",
 		"mocha": "mocha test/mocha",
