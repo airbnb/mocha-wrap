@@ -4,10 +4,10 @@
 
 var test = require('tape');
 
-var wrap = require('../');
-var withGlobal = require('../withGlobal');
-var withOverrides = require('../withOverrides');
-var withOverride = require('../withOverride');
+var wrap = require('../../');
+var withGlobal = require('../../withGlobal');
+var withOverrides = require('../../withOverrides');
+var withOverride = require('../../withOverride');
 
 var hasPrivacy = typeof WeakMap === 'function';
 

@@ -17,7 +17,7 @@
 		"posttest": "npm run --silent cover",
 		"tests-only": "npm run --silent tape | faucet && npm run --silent mocha1 && npm run --silent mocha2",
 		"lint": "eslint '**/*.js'",
-		"tape": "node test",
+		"tape": "node test/tape",
 		"mocha": "mocha test/mocha",
 		"install:mocha1.1": "npm install mocha@1.1.0 && mocha --version",
 		"install:mocha1.x": "npm install mocha@1.x && mocha --version",
@@ -32,7 +32,7 @@
 		"cover": "npm run --silent cover:tape && npm run --silent cover:mocha && npm run --silent cover:merge && npm run --silent cover:check",
 		"cover:check": "istanbul check-coverage",
 		"cover:merge": "istanbul-merge --out coverage/coverage.raw.json 'coverage/*/coverage.raw.json' && istanbul report --format html",
-		"cover:tape": "istanbul cover test/index.js --dir coverage/tape",
+		"cover:tape": "istanbul cover test/tape --dir coverage/tape",
 		"cover:mocha": "istanbul cover ./node_modules/.bin/_mocha --dir coverage/mocha -- test/mocha --recursive --reporter=min"
 	},
 	"repository": {
