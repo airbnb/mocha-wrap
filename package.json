@@ -34,7 +34,8 @@
 		"mocha2.x": "npm run --silent install:mocha2.x && npm run --silent mocha",
 		"mocha1": "npm run --silent mocha1.1 && npm run --silent mocha1.x",
 		"mocha2": "npm run --silent mocha2.0 && npm run --silent mocha2.x",
-		"cover": "npm run --silent cover:tape && npm run --silent cover:mocha && npm run --silent cover:merge && npm run --silent cover:check",
+		"cover": "npm run --silent cover:clean && parallelshell 'npm run --silent cover:tape' 'npm run --silent cover:mocha' && npm run --silent cover:merge && npm run --silent cover:check",
+		"cover:clean": "rimraf coverage",
 		"cover:check": "istanbul check-coverage && echo 100% code coverage, achievement unlocked!",
 		"cover:merge": "istanbul-merge --out coverage/coverage.raw.json 'coverage/*/coverage.raw.json' && istanbul report --format html",
 		"cover:tape": "istanbul cover test/tape --dir coverage/tape",
@@ -91,7 +92,9 @@
 		"@ljharb/eslint-config": "^2.1.1",
 		"istanbul": "1.0.0-alpha.2",
 		"istanbul-lib-coverage": "^1.0.0-alpha.4",
-		"istanbul-merge": "^1.0.0"
+		"istanbul-merge": "^1.0.0",
+		"rimraf": "^2.5.2",
+		"parallelshell": "^2.0.0"
 	},
 	"engines": {
 		"node": ">= 0.4"
