@@ -11,8 +11,32 @@ var withOverride = require('../../withOverride');
 
 var hasPrivacy = typeof WeakMap === 'function';
 
+var setup = function setup() {
+	global.describe = function () {};
+	global.context = function () {};
+	global.it = function () {};
+	global.before = function () {};
+	global.beforeEach = function () {};
+	global.after = function () {};
+	global.afterEach = function () {};
+};
+var teardown = function teardown() {
+	delete global.describe;
+	delete global.context;
+	delete global.it;
+	delete global.before;
+	delete global.beforeEach;
+	delete global.after;
+	delete global.afterEach;
+};
+
 test('mocha-wrap', function (t) {
-	t['throws'](function () { wrap().describe('foo', function () {}); }, TypeError, 'throws when there are no transformations');
+	setup();
+	t.on('end', teardown);
+
+	t['throws'](function () { wrap().describe('foo', function () {}); }, RangeError, 'throws when there are no transformations');
+	t['throws'](function () { wrap().context('foo', function () {}); }, RangeError, 'throws when there are no transformations');
+	t['throws'](function () { wrap().it('foo', function () {}); }, RangeError, 'throws when there are no transformations');
 
 	t.test('.supportedMethods', function (st) {
 		st.equal(Array.isArray(wrap.supportedMethods), true, 'is an array');

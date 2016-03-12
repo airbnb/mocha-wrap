@@ -91,6 +91,10 @@ var flattenToDescriptors = function flattenToDescriptors(wrappers) {
 };
 
 var createAssertion = function createAssertion(type, message, wrappers, block) {
+	var descriptors = flattenToDescriptors(wrappers);
+	if (descriptors.length === 0) {
+		throw new RangeError(inspect(type) + ' called with no wrappers defined');
+	}
 	var describeMsgs = [];
 	forEach(wrappers, function (wrapper) {
 		checkThis(wrapper);
@@ -99,10 +103,6 @@ var createAssertion = function createAssertion(type, message, wrappers, block) {
 	var describeMsg = 'wrapped: ' + describeMsgs.join('; ') + ':';
 	var describeMethod = global.describe;
 	describeMethod(describeMsg, function () {
-		var descriptors = flattenToDescriptors(wrappers);
-		if (descriptors.length === 0) {
-			throw new TypeError(type + ' called with no wrappers defined');
-		}
 		forEach(descriptors, function (methods) {
 			forEach(supportedMethods, function (method) {
 				var functions = methods[method];

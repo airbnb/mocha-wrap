@@ -5,7 +5,9 @@ var wrap = require('../../');
 
 describe('core MochaWrapper semantics', function () {
 	it('throws when there are no transformations', function () {
-		assert['throws'](function () { wrap().describe('foo', function () {}); }, TypeError);
+		assert['throws'](function () { wrap().describe('foo', function () {}); }, RangeError);
+		assert['throws'](function () { wrap().context('foo', function () {}); }, RangeError);
+		assert['throws'](function () { wrap().it('foo', function () {}); }, RangeError);
 	});
 
 	describe('#use()', function () {
