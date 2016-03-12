@@ -1,6 +1,6 @@
 {
 	"name": "mocha-wrap",
-	"version": "1.0.1",
+	"version": "1.1.0",
 	"description": "Fluent pluggable interface for easily wrapping `describe` and `it` blocks in Mocha tests.",
 	"author": "Jordan Harband <ljharb@gmail.com>",
 	"contributors": [
@@ -8,6 +8,11 @@
 			"name": "Jordan Harband",
 			"email": "ljharb@gmail.com",
 			"url": "http://ljharb.codes"
+		},
+		{
+			"name": "Joe Lencioni",
+			"email": "joe.lencioni@gmail.com",
+			"url": "https://twitter.com/lencioni"
 		}
 	],
 	"main": "index.js",
