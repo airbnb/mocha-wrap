@@ -114,8 +114,8 @@ test('MochaWrapper', function (t) {
 	});
 
 	t.test('visible instance properties', { skip: hasPrivacy }, function (st) {
-		st.deepEqual(Object.keys(instance), ['wrappers'], 'has "wrappers" key');
-		st.deepEqual(Object.keys(described), ['wrappers', 'description'], 'has "wrappers" and "description" keys');
+		st.deepEqual(Object.keys(instance), ['wrappers', 'mode'], 'has "wrappers" and "mode" key');
+		st.deepEqual(Object.keys(described), ['wrappers', 'mode', 'description'], 'has "wrappers", "mode", and "description" keys');
 
 		st.end();
 	});

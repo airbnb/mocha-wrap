@@ -19,6 +19,11 @@ var withGlobal = require('./withGlobal');
 var hasPrivacy = typeof WeakMap === 'function';
 var wrapperMap = hasPrivacy ? new WeakMap() : /* istanbul ignore next */ null;
 var descriptionMap = hasPrivacy ? new WeakMap() : /* istanbul ignore next */ null;
+var modeMap = hasPrivacy ? new WeakMap() : /* istanbul ignore next */ null;
+
+var MODE_ALL = 'all';
+var MODE_SKIP = 'skip';
+var MODE_ONLY = 'only';
 
 var beforeMethods = ['before', 'beforeEach'];
 var afterMethods = ['after', 'afterEach'];
@@ -64,17 +69,35 @@ var getThisDescription = function (instance) {
 	return hasPrivacy ? descriptionMap.get(instance) : /* istanbul ignore next */ instance.description;
 };
 
+var setThisMode = function (instance, mode) {
+	checkThis(instance);
+	/* istanbul ignore else */
+	if (hasPrivacy) {
+		modeMap.set(instance, mode);
+	} else {
+		instance.mode = mode;
+	}
+	return instance;
+};
+
+var getThisMode = function (instance) {
+	checkThis(instance);
+	return hasPrivacy ? modeMap.get(instance) : /* istanbul ignore next */ instance.mode;
+};
+
 MochaWrapper = function MochaWrapper() {
 	setThisWrappers(this, []);
+	setThisMode(this, MODE_ALL);
 };
 
 var createWithWrappers = function (wrappers, description) {
 	return setThisDescription(setThisWrappers(new MochaWrapper(), wrappers), description);
 };
 
-var concatThisWrappers = function (instance, toConcat) {
+var concatThis = function (instance, toConcat) {
 	var thisWrappers = getThisWrappers(instance);
-	return createWithWrappers(thisWrappers.concat(toConcat));
+	var thisMode = getThisMode(instance);
+	return setThisMode(createWithWrappers(thisWrappers.concat(toConcat || [])), thisMode);
 };
 
 var flattenToDescriptors = function flattenToDescriptors(wrappers) {
@@ -105,7 +128,7 @@ var applyMethods = function applyMethods(methodsToApply, descriptors) {
 	});
 };
 
-var createAssertion = function createAssertion(type, message, wrappers, block) {
+var createAssertion = function createAssertion(type, message, wrappers, block, mode) {
 	var descriptors = flattenToDescriptors(wrappers);
 	if (descriptors.length === 0) {
 		throw new RangeError(inspect(type) + ' called with no wrappers defined');
@@ -117,6 +140,11 @@ var createAssertion = function createAssertion(type, message, wrappers, block) {
 	});
 	var describeMsg = 'wrapped: ' + describeMsgs.join('; ') + ':';
 	var describeMethod = global.describe;
+	if (mode === MODE_SKIP) {
+		describeMethod = global.describe.skip;
+	} else if (mode === MODE_ONLY) {
+		describeMethod = global.describe.only;
+	}
 	describeMethod(describeMsg, function () {
 		applyMethods(beforeMethods, descriptors);
 		global[type](message, block);
@@ -124,19 +152,30 @@ var createAssertion = function createAssertion(type, message, wrappers, block) {
 	});
 };
 
+MochaWrapper.prototype.skip = function skip() {
+	return setThisMode(concatThis(this), MODE_SKIP);
+};
+
+MochaWrapper.prototype.only = function only() {
+	return setThisMode(concatThis(this), MODE_ONLY);
+};
+
 MochaWrapper.prototype.it = function it(msg, fn) {
 	var wrappers = getThisWrappers(checkThis(this));
-	createAssertion('it', msg, wrappers, fn);
+	var mode = getThisMode(this);
+	createAssertion('it', msg, wrappers, fn, mode);
 };
 
 MochaWrapper.prototype.describe = function describe(msg, fn) {
 	var wrappers = getThisWrappers(checkThis(this));
-	createAssertion('describe', msg, wrappers, fn);
+	var mode = getThisMode(this);
+	createAssertion('describe', msg, wrappers, fn, mode);
 };
 
 MochaWrapper.prototype.context = function context(msg, fn) {
 	var wrappers = getThisWrappers(checkThis(this));
-	createAssertion('context', msg, wrappers, fn);
+	var mode = getThisMode(this);
+	createAssertion('context', msg, wrappers, fn, mode);
 };
 
 var wrap = function wrap() { return new MochaWrapper(); };
@@ -169,7 +208,7 @@ MochaWrapper.prototype.extend = function extend(description, descriptor) {
 		});
 		newWrappers = [createWithWrappers([descriptor])];
 	}
-	return setThisDescription(concatThisWrappers(this, newWrappers), description);
+	return setThisDescription(concatThis(this, newWrappers), description);
 };
 
 MochaWrapper.prototype.use = function use(plugin) {
@@ -188,7 +227,7 @@ MochaWrapper.prototype.use = function use(plugin) {
 		instance = wrap().extend(descriptorOrInstance.description, descriptorOrInstance);
 	}
 
-	return concatThisWrappers(this, [instance]);
+	return concatThis(this, [instance]);
 };
 
 wrap.register = function register(plugin) {

@@ -43,6 +43,12 @@ wrap().withOverrides(obj, { a: 2, b: 3 }).describe('overridden object keys', fun
 		expect(obj.a).to.equal(2);
 	});
 });
+
+wrap().withOverride(obj, 'a', 4).skip().describe('this test is skipped', function () {
+	it('also supports .only()!', function () {
+		expect(true).to.equal(false); // skipped
+	});
+});
 ```
 
 ## Plugins

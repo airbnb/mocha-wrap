@@ -23,23 +23,27 @@
 		"tests-only": "parallelshell 'npm run --silent tape | faucet' 'npm run --silent mocha1 && npm run --silent mocha2'",
 		"lint": "eslint '**/*.js'",
 		"tape": "node test/tape",
-		"mocha": "mocha test/mocha",
-		"install:mocha1.1": "npm install mocha@1.1.0 && mocha --version",
-		"install:mocha1.x": "npm install mocha@1.x && mocha --version",
-		"install:mocha2.0": "npm install mocha@2.0.0 && mocha --version",
-		"install:mocha2.x": "npm install mocha@2.x && mocha --version",
-		"mocha1.1": "npm run --silent install:mocha1.1 && npm run --silent mocha -- --ignore-leaks",
-		"mocha1.x": "npm run --silent install:mocha1.x && npm run --silent mocha -- --ignore-leaks",
+		"mocha": "npm run --silent mocha:standard && npm run --silent mocha:only",
+		"mocha:standard": "mocha test/mocha --ignore-leaks",
+		"mocha:only": "mocha test/mocha-only",
+		"install:mocha1.4": "npm install --silent mocha@1.4.1 && mocha --version",
+		"install:mocha1.x": "npm install --silent mocha@1.x && mocha --version",
+		"install:mocha2.0": "npm install --silent mocha@2.0.0 && mocha --version",
+		"install:mocha2.x": "npm install --silent mocha@2.x && mocha --version",
+		"mocha1.4": "npm run --silent install:mocha1.4 && npm run --silent mocha",
+		"mocha1.x": "npm run --silent install:mocha1.x && npm run --silent mocha",
 		"mocha2.0": "npm run --silent install:mocha2.0 && npm run --silent mocha",
 		"mocha2.x": "npm run --silent install:mocha2.x && npm run --silent mocha",
-		"mocha1": "npm run --silent mocha1.1 && npm run --silent mocha1.x",
+		"mocha1": "npm run --silent mocha1.4 && npm run --silent mocha1.x",
 		"mocha2": "npm run --silent mocha2.0 && npm run --silent mocha2.x",
 		"cover": "npm run --silent cover:clean && parallelshell 'npm run --silent cover:tape' 'npm run --silent cover:mocha' && npm run --silent cover:merge && npm run --silent cover:check",
 		"cover:clean": "rimraf coverage",
 		"cover:check": "istanbul check-coverage && echo 100% code coverage, achievement unlocked!",
 		"cover:merge": "istanbul-merge --out coverage/coverage.raw.json 'coverage/*/coverage.raw.json' && istanbul report --format html",
 		"cover:tape": "istanbul cover test/tape --dir coverage/tape",
-		"cover:mocha": "istanbul cover ./node_modules/.bin/_mocha --dir coverage/mocha -- test/mocha --recursive --reporter=min"
+		"cover:mocha": "npm run --silent cover:mocha:standard && npm run --silent cover:mocha:only",
+		"cover:mocha:standard": "istanbul cover ./node_modules/.bin/_mocha --dir coverage/mocha -- test/mocha --recursive --reporter=min",
+		"cover:mocha:only": "istanbul cover ./node_modules/.bin/_mocha --dir coverage/mocha-only -- test/mocha-only --recursive --reporter=min"
 	},
 	"repository": {
 		"type": "git",
@@ -83,7 +87,7 @@
 		"function.prototype.name": "^1.0.0"
 	},
 	"peerDependencies": {
-		"mocha": "^1.1.0 || ^2.0.0"
+		"mocha": "^1.4.1 || ^2.0.0"
 	},
 	"devDependencies": {
 		"tape": "^4.5.1",
