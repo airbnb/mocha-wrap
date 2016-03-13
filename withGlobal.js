@@ -5,11 +5,13 @@ var isSymbol = require('is-symbol');
 var inspect = require('object-inspect');
 var withOverride = require('./withOverride');
 
-module.exports = function withGlobal(globalName, value) {
+var getGlobal = function () { return global; };
+
+module.exports = function withGlobal(globalName, valueThunk) {
 	var isNonEmptyString = isString(globalName) && globalName.length > 0;
 	if (!isNonEmptyString && !isSymbol(globalName)) {
 		throw new TypeError('global name must be a non-empty string or a Symbol');
 	}
 
-	return this.use(withOverride, global, globalName, value).extend('with global: ' + inspect(globalName));
+	return this.use(withOverride, getGlobal, globalName, valueThunk).extend('with global: ' + inspect(globalName));
 };

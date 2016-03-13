@@ -2,6 +2,7 @@
 
 var assert = require('assert');
 var wrap = require('../..');
+var thunk = function (v) { return function () { return v; }; };
 
 describe('withGlobal plugin', function () {
 	before(function () {
@@ -22,13 +23,13 @@ describe('withGlobal plugin', function () {
 		assert.equal(global.baz, -1);
 	});
 
-	wrap().withGlobal('foo', 123).it('foo is 123', function () {
+	wrap().withGlobal('foo', thunk(123)).it('foo is 123', function () {
 		assert.equal(global.foo, 123);
 		assert.equal(global.bar, 100);
 		assert.equal(global.baz, -1);
 	});
 
-	wrap().withGlobal('foo', 123).withGlobal('bar', 456).describe('foo and bar', function () {
+	wrap().withGlobal('foo', thunk(123)).withGlobal('bar', thunk(456)).describe('foo and bar', function () {
 		it('has the right foo', function () {
 			assert.equal(global.foo, 123);
 		});

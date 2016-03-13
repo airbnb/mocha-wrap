@@ -2,23 +2,37 @@
 
 var entries = require('object.entries');
 var has = require('has');
+var isCallable = require('is-callable');
 var isObject = require('is-object');
 var forEach = require('for-each');
 var supportsDescriptors = require('define-properties').supportsDescriptors;
 
-module.exports = function withOverrides(object, overrides) {
-	if (!isObject(object)) {
-		throw new TypeError('can not override on a non-object');
+module.exports = function withOverrides(objectThunk, overridesThunk) {
+	if (!isCallable(objectThunk)) {
+		throw new TypeError('a function that returns the object to override is required');
 	}
-	if (!isObject(overrides)) {
-		throw new TypeError('can not override without an object from which to get overrides');
+	if (!isCallable(overridesThunk)) {
+		throw new TypeError('a function that returns the object from which to get overrides is required');
 	}
 	var objectHadOwn = {};
 	var overriddenDescriptor = {};
 	var overriddenValue = {};
-	var overridePairs = entries(overrides);
+	var overridePairs, object, overrides;
 	return this.extend('with overrides', {
 		beforeEach: function beforeEachWithOverrides() {
+			if (!object) {
+				object = objectThunk();
+				if (!isObject(object)) {
+					throw new TypeError('can not override on a non-object');
+				}
+			}
+			if (!overrides) {
+				overrides = overridesThunk();
+				if (!isObject(overrides)) {
+					throw new TypeError('can not override without an object from which to get overrides');
+				}
+				overridePairs = entries(overrides);
+			}
 			forEach(overridePairs, function (entry) {
 				var key = entry[0];
 				var value = entry[1];

@@ -12,13 +12,15 @@ var withOverride = require('../../withOverride');
 var hasPrivacy = typeof WeakMap === 'function';
 
 var setup = function setup() {
-	global.describe = function () {};
-	global.context = function () {};
-	global.it = function () {};
-	global.before = function () {};
-	global.beforeEach = function () {};
-	global.after = function () {};
-	global.afterEach = function () {};
+	var msgFn = function (msg, fn) { fn(); };
+	global.describe = msgFn;
+	global.context = msgFn;
+	global.it = msgFn;
+	var runFn = function (fn) { fn(); };
+	global.before = runFn;
+	global.beforeEach = runFn;
+	global.after = runFn;
+	global.afterEach = runFn;
 };
 var teardown = function teardown() {
 	delete global.describe;
@@ -48,6 +50,16 @@ test('mocha-wrap', function (t) {
 		st['throws'](function () { wrap().context.only('only'); }, SyntaxError, 'context.only throws');
 		st['throws'](function () { wrap().it.skip('skip'); }, SyntaxError, 'it.skip throws');
 		st['throws'](function () { wrap().it.only('only'); }, SyntaxError, 'it.only throws');
+		st.end();
+	});
+
+	t.test('withOverrides deferred exceptions', function (st) {
+		st['throws'](function () {
+			wrap().withOverrides(function () { return null; }, function () { return {}; }).describe('msg');
+		}, TypeError, 'requires objectThunk to return an object');
+		st['throws'](function () {
+			wrap().withOverrides(function () { return {}; }, function () { return null; }).describe('msg');
+		}, TypeError, 'requires overridesThunk to return an object');
 		st.end();
 	});
 
@@ -240,7 +252,7 @@ test('MochaWrapper', function (t) {
 });
 
 test('withGlobal', function (t) {
-	t.test('exceptions', function (st) {
+	t.test('key exceptions', function (st) {
 		st['throws'](withGlobal, TypeError, 'requires a string or Symbol');
 		st['throws'](function () { withGlobal(''); }, TypeError, 'string must not be empty');
 		st['throws'](function () { withGlobal(); }, TypeError, 'undefined is not a string or Symbol');
@@ -253,13 +265,19 @@ test('withGlobal', function (t) {
 		st.end();
 	});
 
+	t.test('value exceptions', function (st) {
+		st['throws'](function () { withGlobal('key', {}); }, TypeError, 'requires a callable valueThunk');
+		st.end();
+	});
+
 	t.end();
 });
 
 test('withOverrides', function (t) {
 	t.test('exceptions', function (st) {
-		st['throws'](withOverrides, TypeError, 'requires an object to override');
-		st['throws'](function () { withOverrides({}); }, TypeError, 'requires an object to override with');
+		st['throws'](withOverrides, TypeError, 'requires an objectThunk to override');
+		st['throws'](function () { withOverrides({}); }, TypeError, 'requires a callable objectThunk to override');
+		st['throws'](function () { withOverrides(function () { return {}; }); }, TypeError, 'requires an objectThunk to override with');
 		st.end();
 	});
 
@@ -268,14 +286,18 @@ test('withOverrides', function (t) {
 
 test('withOverride', function (t) {
 	t.test('exceptions', function (st) {
-		st['throws'](function () { withOverride(null, 'foo'); }, TypeError, 'requires an object');
-		st['throws'](function () { withOverride({}); }, TypeError, 'undefined is not a string or Symbol');
-		st['throws'](function () { withOverride({}, null); }, TypeError, 'null is not a string or Symbol');
-		st['throws'](function () { withOverride({}, true); }, TypeError, 'true is not a string or Symbol');
-		st['throws'](function () { withOverride({}, 42); }, TypeError, '42 is not a string or Symbol');
-		st['throws'](function () { withOverride({}, /a/g); }, TypeError, 'regex is not a string or Symbol');
-		st['throws'](function () { withOverride({}, []); }, TypeError, 'array is not a string or Symbol');
-		st['throws'](function () { withOverride({}, {}); }, TypeError, 'object is not a string or Symbol');
+		var getObj = function () { return {}; };
+		st['throws'](function () { withOverride(null, 'foo'); }, TypeError, 'requires an objectThunk');
+		st['throws'](function () { withOverride({}, 'foo'); }, TypeError, 'requires a callable objectThunk');
+		st['throws'](function () { withOverride(getObj); }, TypeError, 'undefined is not a string or Symbol');
+		st['throws'](function () { withOverride(getObj, null); }, TypeError, 'null is not a string or Symbol');
+		st['throws'](function () { withOverride(getObj, true); }, TypeError, 'true is not a string or Symbol');
+		st['throws'](function () { withOverride(getObj, 42); }, TypeError, '42 is not a string or Symbol');
+		st['throws'](function () { withOverride(getObj, /a/g); }, TypeError, 'regex is not a string or Symbol');
+		st['throws'](function () { withOverride(getObj, []); }, TypeError, 'array is not a string or Symbol');
+		st['throws'](function () { withOverride(getObj, {}); }, TypeError, 'object is not a string or Symbol');
+
+		st['throws'](function () { withOverride(getObj, 'key', {}); }, TypeError, 'requires a callable valueThunk');
 		st.end();
 	});
 
