@@ -33,4 +33,44 @@ describe('core MochaWrapper semantics', function () {
 			assert.equal(true, true); // oh yeah, TESTING
 		});
 	});
+
+	var calls = [];
+	describe('ordering of before/afters with multiple plugins', function () {
+		wrap().extend('first', {
+			before: function () { calls.push('>:before'); },
+			beforeEach: function () { calls.push('>:beforeEach'); },
+			after: function () { calls.push('>:after'); },
+			afterEach: function () { calls.push('>:afterEach'); }
+		}).extend('second', {
+			before: function () { calls.push('>>:before'); },
+			beforeEach: function () { calls.push('>>:beforeEach'); },
+			after: function () { calls.push('>>:after'); },
+			afterEach: function () { calls.push('>>:afterEach'); }
+		}).describe('with method tracking', function () {
+			it('is one test', function () { calls.push('>>>:test'); });
+			it('is another test', function () { calls.push('>>>:test'); });
+		});
+	});
+
+	after(function () {
+		assert.deepEqual(calls, [
+			'>:before',
+			'>>:before',
+
+			'>:beforeEach',
+			'>>:beforeEach',
+			'>>>:test',
+			'>>:afterEach',
+			'>:afterEach',
+
+			'>:beforeEach',
+			'>>:beforeEach',
+			'>>>:test',
+			'>>:afterEach',
+			'>:afterEach',
+
+			'>>:after',
+			'>:after'
+		]);
+	});
 });
