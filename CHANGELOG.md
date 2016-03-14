@@ -1,3 +1,14 @@
+2.0.0 / 2016-03-14
+=================
+  * [Breaking] `withGlobal`/`withOverride`/`withOverrides` now require a thunk for both targets and overrides (#2)
+  * [Breaking] [New] Add `.only()`/`.skip()`, drop mocha < 1.4.1 support (#6, #1)
+  * [Fix] ensure multiple nested before/after hooks are called in the right order (#3)
+  * [Fix] ensure “no transformations” throws properly
+  * [Tests] on `node` `v5.8`, `v4.4`
+  * [Tests] parallelize tape tests and mocha tests
+  * [Tests] ensure coverage dir is clean before running merge; parallelize coverage runs
+  * [Tests] Echo a success message on `npm run cover:check`
+
 1.1.0 / 2016-03-11
 =================
   * [New] add `.context()` (#4)
