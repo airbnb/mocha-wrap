@@ -10,6 +10,10 @@ describe('core MochaWrapper semantics', function () {
 		assert['throws'](function () { wrap().it('foo', function () {}); }, RangeError);
 	});
 
+	var withNothing = function withNothing() {
+		return { description: 'i am pointless' };
+	};
+
 	describe('#use()', function () {
 		var flag = false;
 		var withDescriptor = function withDescriptor() {
@@ -18,9 +22,6 @@ describe('core MochaWrapper semantics', function () {
 				beforeEach: function () { flag = true; },
 				afterEach: function () { flag = false; }
 			};
-		};
-		var withNothing = function withNothing() {
-			return { description: 'i am pointless' };
 		};
 
 		wrap().use(withDescriptor).context('with a plugin that returns a descriptor', function () {
@@ -31,6 +32,24 @@ describe('core MochaWrapper semantics', function () {
 
 		wrap().use(withNothing).it('works with a plugin that returns a descriptor with only a description', function () {
 			assert.equal(true, true); // oh yeah, TESTING
+		});
+	});
+
+	describe('#skip()', function () {
+		wrap().use(withNothing).skip().it('skipped an it!', function () {
+			assert.equal(true, false); // boom
+		});
+
+		wrap().use(withNothing).skip().describe('skipped a describe!', function () {
+			it('fails if not skipped', function () {
+				assert.equal(true, false); // boom
+			});
+		});
+
+		wrap().use(withNothing).skip().context('skipped a context!', function () {
+			it('fails if not skipped', function () {
+				assert.equal(true, false); // boom
+			});
 		});
 	});
 

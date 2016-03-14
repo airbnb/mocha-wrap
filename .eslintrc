@@ -6,7 +6,7 @@
 	"rules": {
 		"id-length": 0,
 		"max-nested-callbacks": [2, 4],
-		"max-params": [2, 4],
+		"max-params": [2, 5],
 		"max-statements": [2, 11],
 		"no-invalid-this": 0,
 		"no-magic-numbers": 0,
