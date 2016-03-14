@@ -1,3 +1,7 @@
+2.0.1 / 2016-03-14
+=================
+  * Something broke with the v2.0.0 publish
+
 2.0.0 / 2016-03-14
 =================
   * [Breaking] `withGlobal`/`withOverride`/`withOverrides` now require a thunk for both targets and overrides (#2)
