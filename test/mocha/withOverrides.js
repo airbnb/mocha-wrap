@@ -31,6 +31,24 @@ describe('withOverrides plugin', function () {
 			});
 		});
 
+	var holder = {};
+	wrap().withOverrides(thunk(holder), function () { return { toMutate: {} }; })
+		.describe('mutations across multiple tests', function () {
+			it('can be mutated in one test', function () {
+				holder.toMutate.before = 'hi!';
+				assert.deepEqual(holder, { toMutate: { before: 'hi!' } });
+			});
+
+			it('is reset in another test', function () {
+				assert.deepEqual(holder, { toMutate: {} });
+			});
+
+			it('is mutated afterwards, so test order doesn’t matter', function () {
+				holder.toMutate.after = 'hi!';
+				assert.deepEqual(holder, { toMutate: { after: 'hi!' } });
+			});
+		});
+
 	it('still has properties set to initial values', function () {
 		assert.deepEqual(obj, { foo: 'before foo', bar: 'before bar', baz: -1, quux: 'quux' });
 	});

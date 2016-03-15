@@ -14,25 +14,20 @@ module.exports = function withOverrides(objectThunk, overridesThunk) {
 	if (!isCallable(overridesThunk)) {
 		throw new TypeError('a function that returns the object from which to get overrides is required');
 	}
-	var objectHadOwn = {};
-	var overriddenDescriptor = {};
-	var overriddenValue = {};
-	var overridePairs, object, overrides;
+	var overridesData = [];
 	return this.extend('with overrides', {
 		beforeEach: function beforeEachWithOverrides() {
-			if (!object) {
-				object = objectThunk();
-				if (!isObject(object)) {
-					throw new TypeError('can not override on a non-object');
-				}
+			var object = objectThunk();
+			if (!isObject(object)) {
+				throw new TypeError('can not override on a non-object');
 			}
-			if (!overrides) {
-				overrides = overridesThunk();
-				if (!isObject(overrides)) {
-					throw new TypeError('can not override without an object from which to get overrides');
-				}
-				overridePairs = entries(overrides);
+			var overrides = overridesThunk();
+			if (!isObject(overrides)) {
+				throw new TypeError('can not override without an object from which to get overrides');
 			}
+			var overridePairs = entries(overrides);
+			var objectHadOwn = {};
+			var overridden = {};
 			forEach(overridePairs, function (entry) {
 				var key = entry[0];
 				var value = entry[1];
@@ -40,26 +35,33 @@ module.exports = function withOverrides(objectThunk, overridesThunk) {
 					objectHadOwn[key] = true;
 					/* istanbul ignore else */
 					if (supportsDescriptors) {
-						overriddenDescriptor[key] = Object.getOwnPropertyDescriptor(object, key);
+						overridden[key] = Object.getOwnPropertyDescriptor(object, key);
 					} else {
-						overriddenValue[key] = object[key];
+						overridden[key] = object[key];
 					}
 				}
 				object[key] = value;
 			});
+			overridesData.push({
+				objectHadOwn: objectHadOwn,
+				overridden: overridden,
+				object: object,
+				overridePairs: overridePairs
+			});
 		},
 		afterEach: function afterEachWithOverrides() {
-			forEach(overridePairs, function (entry) {
+			var data = overridesData.pop();
+			forEach(data.overridePairs, function (entry) {
 				var key = entry[0];
-				if (objectHadOwn[key]) {
+				if (data.objectHadOwn[key]) {
 					/* istanbul ignore else */
-					if (overriddenDescriptor[key]) {
-						Object.defineProperty(object, key, overriddenDescriptor[key]);
+					if (supportsDescriptors) {
+						Object.defineProperty(data.object, key, data.overridden[key]);
 					} else {
-						object[key] = overriddenValue[key];
+						data.object[key] = data.overridden[key];
 					}
 				} else {
-					delete object[key];
+					delete data.object[key];
 				}
 			});
 		}
