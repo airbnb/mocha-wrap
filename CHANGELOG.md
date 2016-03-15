@@ -1,3 +1,7 @@
+2.0.2 / 2016-03-15
+=================
+  * [Fix] make sure `withOverrides` re-calls the thunks on every iteration
+
 2.0.1 / 2016-03-14
 =================
   * Something broke with the v2.0.0 publish
