@@ -24,7 +24,7 @@
 		"lint": "eslint '**/*.js'",
 		"tape": "node test/tape",
 		"mocha": "npm run --silent mocha:standard && npm run --silent mocha:only",
-		"mocha:standard": "[ '$MOCHAv1' = true ] && mocha --ignore-leaks test/mocha || mocha test/mocha",
+		"mocha:standard": "[ \"$MOCHAv1\" = true ] && mocha --ignore-leaks test/mocha || mocha test/mocha",
 		"mocha:only": "mocha test/mocha-only",
 		"install:mocha1.4": "npm install --silent mocha@1.4.1 && mocha --version",
 		"install:mocha1.x": "npm install --silent mocha@1.x && mocha --version",
