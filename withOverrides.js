@@ -3,7 +3,7 @@
 var entries = require('object.entries');
 var has = require('has');
 var isCallable = require('is-callable');
-var isObject = require('is-object');
+var isPrimitive = require('is-primitive');
 var forEach = require('for-each');
 var supportsDescriptors = require('define-properties').supportsDescriptors;
 
@@ -18,11 +18,11 @@ module.exports = function withOverrides(objectThunk, overridesThunk) {
 	return this.extend('with overrides', {
 		beforeEach: function beforeEachWithOverrides() {
 			var object = objectThunk();
-			if (!isObject(object)) {
+			if (isPrimitive(object)) {
 				throw new TypeError('can not override on a non-object');
 			}
 			var overrides = overridesThunk();
-			if (!isObject(overrides)) {
+			if (isPrimitive(overrides)) {
 				throw new TypeError('can not override without an object from which to get overrides');
 			}
 			var overridePairs = entries(overrides);

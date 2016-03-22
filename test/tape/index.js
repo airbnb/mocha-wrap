@@ -281,6 +281,22 @@ test('withOverrides', function (t) {
 		st.end();
 	});
 
+	t.test('works with functions', function (st) {
+		st.doesNotThrow(function () {
+			wrap().withOverrides(
+				function () { return function () {}; },
+				function () { return {}; }
+			);
+		}, 'accepts a function to override');
+		st.doesNotThrow(function () {
+			wrap().withOverrides(
+				function () { return {}; },
+				function () { return function () {}; }
+			);
+		}, 'accepts a function of overrides');
+		st.end();
+	});
+
 	t.end();
 });
 
