@@ -1,3 +1,8 @@
+2.0.3 / 2016-03-22
+=================
+  * [Fix] withOverrides: allow functions to be used as both the object to override, and the object of overrides.
+  * [Tests] on `node` `v5.9`
+
 2.0.2 / 2016-03-15
 =================
   * [Fix] make sure `withOverrides` re-calls the thunks on every iteration
