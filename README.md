@@ -23,7 +23,7 @@ var mockWindow = {
 		href: 'test/url'
 	}
 };
-wrap().withGlobal('window', mockWindow).describe('mocked window', function () {
+wrap().withGlobal('window', () => mockWindow).describe('mocked window', function () {
 	it('is mocked', function () {
 		expect(window).to.equal(mockWindow);
 	});
@@ -34,7 +34,7 @@ wrap().withGlobal('window', mockWindow).describe('mocked window', function () {
 });
 
 var obj = { a: 1 };
-wrap().withOverrides(obj, { a: 2, b: 3 }).describe('overridden object keys', function () {
+wrap().withOverrides(() => obj, () => ({ a: 2, b: 3 })).describe('overridden object keys', function () {
 	it('has "b"', function () {
 		expect(obj.b).to.equal(3);
 	});
@@ -44,7 +44,7 @@ wrap().withOverrides(obj, { a: 2, b: 3 }).describe('overridden object keys', fun
 	});
 });
 
-wrap().withOverride(obj, 'a', 4).skip().describe('this test is skipped', function () {
+wrap().withOverride(() => obj, 'a', () => 4).skip().describe('this test is skipped', function () {
 	it('also supports .only()!', function () {
 		expect(true).to.equal(false); // skipped
 	});
