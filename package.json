@@ -92,11 +92,11 @@
 	"devDependencies": {
 		"tape": "^4.5.1",
 		"faucet": "^0.0.1",
-		"eslint": "^2.4.0",
-		"@ljharb/eslint-config": "^2.1.1",
+		"eslint": "^2.5.3",
+		"@ljharb/eslint-config": "^2.2.0",
 		"istanbul": "1.0.0-alpha.2",
 		"istanbul-lib-coverage": "^1.0.0-alpha.4",
-		"istanbul-merge": "^1.0.0",
+		"istanbul-merge": "^1.1.0",
 		"rimraf": "^2.5.2",
 		"parallelshell": "^2.0.0"
 	},
