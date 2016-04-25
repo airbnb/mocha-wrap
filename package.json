@@ -93,7 +93,7 @@
 		"tape": "^4.5.1",
 		"faucet": "^0.0.1",
 		"eslint": "^2.8.0",
-		"@ljharb/eslint-config": "^3.0.0",
+		"@ljharb/eslint-config": "^3.0.1",
 		"istanbul": "1.0.0-alpha.2",
 		"istanbul-lib-coverage": "^1.0.0-alpha.4",
 		"istanbul-merge": "^1.1.0",
