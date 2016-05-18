@@ -1,3 +1,10 @@
+2.0.4 / 2016-05-18
+=================
+  * [Fix] withOverride/withOverrides should work on something with only a getter.
+  * [Deps] update `object-inspect`
+  * [Dev Deps] update `eslint`, `@ljharb/eslint-config`, `istanbul-merge`
+  * [Tests] up to `node` `v6.1`
+
 2.0.3 / 2016-03-22
 =================
   * [Fix] withOverrides: allow functions to be used as both the object to override, and the object of overrides.
