@@ -4,6 +4,7 @@ var assert = require('assert');
 var has = require('has');
 var wrap = require('../..');
 var thunk = function (v) { return function () { return v; }; };
+var supportsDescriptors = require('define-properties').supportsDescriptors;
 
 describe('withOverrides plugin', function () {
 	var obj = {};
@@ -64,5 +65,19 @@ describe('withOverrides plugin', function () {
 
 	it('still lacks the key "absent"', function () {
 		assert.equal(has(obj, 'absent'), false);
+	});
+
+	var describeIfDescriptors = supportsDescriptors ? describe : describe.skip;
+	describeIfDescriptors('when something is a getter', function () {
+		var getter = Object.defineProperty({}, 'foo', {
+			configurable: true,
+			get: function () { return 42; },
+			enumerable: true
+		});
+
+		wrap().withOverrides(thunk(getter), thunk({ foo: 'bar' }))
+		.it('overrides a getter', function () {
+			assert.deepEqual(getter, { foo: 'bar' });
+		});
 	});
 });

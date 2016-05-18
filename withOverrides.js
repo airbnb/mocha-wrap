@@ -40,7 +40,17 @@ module.exports = function withOverrides(objectThunk, overridesThunk) {
 						overridden[key] = object[key];
 					}
 				}
-				object[key] = value;
+				/* istanbul ignore else */
+				if (supportsDescriptors) {
+					Object.defineProperty(object, key, {
+						configurable: true,
+						enumerable: objectHadOwn[key] ? overridden[key].enumerable : true,
+						value: value,
+						writable: objectHadOwn[key] ? overridden[key].writable : true
+					});
+				} else {
+					object[key] = value;
+				}
 			});
 			overridesData.push({
 				objectHadOwn: objectHadOwn,
