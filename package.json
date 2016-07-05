@@ -92,7 +92,7 @@
 	"devDependencies": {
 		"tape": "^4.5.1",
 		"faucet": "^0.0.1",
-		"eslint": "^2.11.0",
+		"eslint": "^3.0.1",
 		"@ljharb/eslint-config": "^5.0.0",
 		"istanbul": "1.0.0-alpha.2",
 		"istanbul-lib-coverage": "^1.0.0-alpha.4",
