@@ -19,17 +19,18 @@ describe('withOverride plugin', function () {
 	});
 
 	wrap().withOverride(thunk(obj), 'foo', thunk('after foo'))
-		.it('foo is "after foo"', function () {
-			assert.deepEqual(obj, { foo: 'after foo', bar: 'before bar', baz: -1, quux: 'quux' });
-		});
+	.it('foo is "after foo"', function () {
+		assert.deepEqual(obj, { foo: 'after foo', bar: 'before bar', baz: -1, quux: 'quux' });
+	});
 
-	wrap().withOverride(thunk(obj), 'foo', thunk('after foo'))
-		.withOverride(thunk(obj), 'bar', thunk('after bar'))
-		.describe('foo + bar', function () {
-			it('is overridden as expected', function () {
-				assert.deepEqual(obj, { foo: 'after foo', bar: 'after bar', baz: -1, quux: 'quux' });
-			});
+	wrap()
+	.withOverride(thunk(obj), 'foo', thunk('after foo'))
+	.withOverride(thunk(obj), 'bar', thunk('after bar'))
+	.describe('foo + bar', function () {
+		it('is overridden as expected', function () {
+			assert.deepEqual(obj, { foo: 'after foo', bar: 'after bar', baz: -1, quux: 'quux' });
 		});
+	});
 
 	it('still has properties set to initial values', function () {
 		assert.deepEqual(obj, { foo: 'before foo', bar: 'before bar', baz: -1, quux: 'quux' });
@@ -39,10 +40,11 @@ describe('withOverride plugin', function () {
 		assert.equal(has(obj, 'absent'), false);
 	});
 
-	wrap().withOverride(thunk(obj), 'absent', thunk('yay'))
-		.it('absent property is added', function () {
-			assert.equal(has(obj, 'absent'), true);
-		});
+	wrap()
+	.withOverride(thunk(obj), 'absent', thunk('yay'))
+	.it('absent property is added', function () {
+		assert.equal(has(obj, 'absent'), true);
+	});
 
 	it('still lacks the key "absent"', function () {
 		assert.equal(has(obj, 'absent'), false);
