@@ -55,10 +55,10 @@ test('mocha-wrap', function (t) {
 
 	t.test('withOverrides deferred exceptions', function (st) {
 		st['throws'](function () {
-			wrap().withOverrides(function () { return null; }, function () { return {}; }).describe('msg');
+			wrap().withOverrides(function () { return null; }, function () { return {}; }).describe('msg', function () {});
 		}, TypeError, 'requires objectThunk to return an object');
 		st['throws'](function () {
-			wrap().withOverrides(function () { return {}; }, function () { return null; }).describe('msg');
+			wrap().withOverrides(function () { return {}; }, function () { return null; }).describe('msg', function () {});
 		}, TypeError, 'requires overridesThunk to return an object');
 		st.end();
 	});
