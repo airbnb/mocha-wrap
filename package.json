@@ -87,7 +87,7 @@
 		"function.prototype.name": "^1.0.0"
 	},
 	"peerDependencies": {
-		"mocha": "^1.4.1 || ^2.0.0"
+		"mocha": "^3.0.0"
 	},
 	"devDependencies": {
 		"tape": "^4.6.0",
