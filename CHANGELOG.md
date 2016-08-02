@@ -1,3 +1,9 @@
+2.0.5 / 2016-08-01
+=================
+  * [Patch] [Tests] update `peerDependencies for `mocha` `v3`; remove `parallelshell` since it does not reliably report failures.
+  * [Tests] on `node` `v6.3`, `v5.12`
+  * [Dev Deps] update `eslint`, `@ljharb/eslint-config`, `tape`, `rimraf`
+
 2.0.4 / 2016-05-18
 =================
   * [Fix] withOverride/withOverrides should work on something with only a getter.
