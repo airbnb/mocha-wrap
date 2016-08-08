@@ -93,7 +93,7 @@
 		"function.prototype.name": "^1.0.0"
 	},
 	"peerDependencies": {
-		"mocha": "^1.4.1 || ^2.0.0 || ^3.0.0"
+		"mocha": "^3.0.2"
 	},
 	"devDependencies": {
 		"@ljharb/eslint-config": "^6.0.0",
