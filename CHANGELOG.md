@@ -1,6 +1,6 @@
 2.0.5 / 2016-08-01
 =================
-  * [Patch] [Tests] update `peerDependencies for `mocha` `v3`; remove `parallelshell` since it does not reliably report failures.
+  * [Patch] [Tests] update `peerDependencies` for `mocha` `v3`; remove `parallelshell` since it does not reliably report failures.
   * [Tests] on `node` `v6.3`, `v5.12`
   * [Dev Deps] update `eslint`, `@ljharb/eslint-config`, `tape`, `rimraf`
 
