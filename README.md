@@ -111,15 +111,15 @@ Although mocha has `describe.skip`, `describe.only`, `context.skip`, `context.on
 Simply clone the repo, `npm install`, and run `npm test`
 
 [1]: https://npmjs.org/package/mocha-wrap
-[2]: http://versionbadg.es/ljharb/mocha-wrap.svg
-[3]: https://travis-ci.org/ljharb/mocha-wrap.svg
-[4]: https://travis-ci.org/ljharb/mocha-wrap
-[5]: https://david-dm.org/ljharb/mocha-wrap.svg
-[6]: https://david-dm.org/ljharb/mocha-wrap
-[7]: https://david-dm.org/ljharb/mocha-wrap/dev-status.svg
-[8]: https://david-dm.org/ljharb/mocha-wrap#info=devDependencies
-[9]: https://ci.testling.com/ljharb/mocha-wrap.png
-[10]: https://ci.testling.com/ljharb/mocha-wrap
+[2]: http://versionbadg.es/airbnb/mocha-wrap.svg
+[3]: https://travis-ci.org/airbnb/mocha-wrap.svg
+[4]: https://travis-ci.org/airbnb/mocha-wrap
+[5]: https://david-dm.org/airbnb/mocha-wrap.svg
+[6]: https://david-dm.org/airbnb/mocha-wrap
+[7]: https://david-dm.org/airbnb/mocha-wrap/dev-status.svg
+[8]: https://david-dm.org/airbnb/mocha-wrap#info=devDependencies
+[9]: https://ci.testling.com/airbnb/mocha-wrap.png
+[10]: https://ci.testling.com/airbnb/mocha-wrap
 [11]: https://nodei.co/npm/mocha-wrap.png?downloads=true&stars=true
 [license-image]: http://img.shields.io/npm/l/mocha-wrap.svg
 [license-url]: LICENSE
