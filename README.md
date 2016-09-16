@@ -8,8 +8,6 @@
 
 [![npm badge][11]][1]
 
-[![browser support][9]][10]
-
 Fluent pluggable interface for easily wrapping `describe`, `context`, and `it` blocks in Mocha tests.
 
 ## Example
@@ -118,8 +116,6 @@ Simply clone the repo, `npm install`, and run `npm test`
 [6]: https://david-dm.org/airbnb/mocha-wrap
 [7]: https://david-dm.org/airbnb/mocha-wrap/dev-status.svg
 [8]: https://david-dm.org/airbnb/mocha-wrap#info=devDependencies
-[9]: https://ci.testling.com/airbnb/mocha-wrap.png
-[10]: https://ci.testling.com/airbnb/mocha-wrap
 [11]: https://nodei.co/npm/mocha-wrap.png?downloads=true&stars=true
 [license-image]: http://img.shields.io/npm/l/mocha-wrap.svg
 [license-url]: LICENSE
