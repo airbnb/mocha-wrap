@@ -19,7 +19,7 @@ describe('withOverride plugin', function () {
 	});
 
 	wrap().withOverride(thunk(obj), 'foo', thunk('after foo'))
-	.it('foo is "after foo"', function () {
+	.specify('foo is "after foo"', function () {
 		assert.deepEqual(obj, { foo: 'after foo', bar: 'before bar', baz: -1, quux: 'quux' });
 	});
 

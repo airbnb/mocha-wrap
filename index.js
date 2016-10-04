@@ -172,6 +172,18 @@ MochaWrapper.prototype.it.only = function only() {
 	throw new SyntaxError('mocha-wrap requires `.only().it` rather than `it.only`');
 };
 
+MochaWrapper.prototype.specify = function specify(msg, fn) {
+	var wrappers = getThisWrappers(checkThis(this));
+	var mode = getThisMode(this);
+	createAssertion('specify', msg, wrappers, fn, mode);
+};
+MochaWrapper.prototype.specify.skip = function skip() {
+	throw new SyntaxError('mocha-wrap requires `.skip().specify` rather than `specify.skip`');
+};
+MochaWrapper.prototype.specify.only = function only() {
+	throw new SyntaxError('mocha-wrap requires `.only().specify` rather than `specify.only`');
+};
+
 MochaWrapper.prototype.describe = function describe(msg, fn) {
 	var wrappers = getThisWrappers(checkThis(this));
 	var mode = getThisMode(this);

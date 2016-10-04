@@ -8,7 +8,7 @@
 
 [![npm badge][11]][1]
 
-Fluent pluggable interface for easily wrapping `describe`, `context`, and `it` blocks in Mocha tests.
+Fluent pluggable interface for easily wrapping `describe`, `context`, `it`, and `specify` blocks in Mocha tests.
 
 ## Example
 
@@ -103,7 +103,7 @@ wrap().withFoo().describe…
 ```
 
 ## skip/only
-Although mocha has `describe.skip`, `describe.only`, `context.skip`, `context.only`, `it.skip`, and `it.only`, it is not possible to implement these in mocha-wrap without using ES5 property accessors. Since this project supports ES3, we decided to use `.skip().describe` etc rather than forfeit the ability to have skip/only.
+Although mocha has `describe.skip`, `describe.only`, `context.skip`, `context.only`, `it.skip`, `it.only`, `specify.skip`, and `specify.only`, it is not possible to implement these in mocha-wrap without using ES5 property accessors. Since this project supports ES3, we decided to use `.skip().describe` etc rather than forfeit the ability to have skip/only.
 
 ## Tests
 Simply clone the repo, `npm install`, and run `npm test`
