@@ -1,3 +1,11 @@
+2.1.0 / 2016-10-04
+=================
+  * [New] add support for `specify` as an alias to `it`
+  * [Dev Deps] add `eslint`, `@ljharb/eslint-config`, `istanbul`, `istanbul-lib-coverage`, `istanbul-merge`, `safe-publish-latest`, `tape`
+  * [Tests] up to `node` `v6.6`, `v4.5`; improve test matrix
+  * [Tests] ensure coverage runs on mocha 3
+  * [Docs] remove browser support matrix
+
 2.0.5 / 2016-08-01
 =================
   * [Patch] [Tests] update `peerDependencies` for `mocha` `v3`; remove `parallelshell` since it does not reliably report failures.
