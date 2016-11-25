@@ -97,15 +97,15 @@
 	},
 	"devDependencies": {
 		"@ljharb/eslint-config": "^8.0.0",
-		"eslint": "^3.7.1",
+		"eslint": "^3.10.2",
 		"faucet": "^0.0.1",
 		"istanbul": "1.1.0-alpha.1",
 		"istanbul-lib-coverage": "^1.0.0",
 		"istanbul-merge": "^1.1.1",
 		"parallelshell": "^2.0.0",
 		"rimraf": "^2.5.4",
-		"safe-publish-latest": "^1.1.0",
-		"tape": "^4.6.2"
+		"safe-publish-latest": "^1.1.1",
+		"tape": "^4.6.3"
 	},
 	"engines": {
 		"node": ">= 0.4"
