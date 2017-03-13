@@ -257,7 +257,7 @@ MochaWrapper.prototype.use = function use(plugin) {
 		instance = wrap().extend(descriptorOrInstance.description, descriptorOrInstance);
 	}
 
-	return concatThis(this, [instance]);
+	return instance;
 };
 
 wrap.register = function register(plugin) {

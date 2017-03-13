@@ -14,6 +14,19 @@ describe('core MochaWrapper semantics', function () {
 		return { description: 'i am pointless' };
 	};
 
+	var testingCount = 0;
+	var withTesting = function withTesting() {
+		return this.extend('(with Testing)', {
+			beforeEach: function withTestingBeforeEach() {
+				testingCount += 1;
+			}
+		});
+	};
+
+	var withFancyNoop = function withFancyNoop() {
+		return this.extend('(withFancyNoop)', {});
+	};
+
 	describe('#use()', function () {
 		var flag = false;
 		var withDescriptor = function withDescriptor() {
@@ -23,6 +36,15 @@ describe('core MochaWrapper semantics', function () {
 				afterEach: function () { flag = false; }
 			};
 		};
+
+		wrap()
+		.use(withTesting)
+		.use(withFancyNoop)
+		.context('with multiple plugins', function () {
+			it('calls the plugin\'s hooks an appropriate number of times', function () {
+				assert.equal(testingCount, 1);
+			});
+		});
 
 		wrap().use(withDescriptor).context('with a plugin that returns a descriptor', function () {
 			it('works', function () {
