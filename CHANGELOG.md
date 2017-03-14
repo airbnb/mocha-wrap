@@ -1,3 +1,7 @@
+2.1.1 / 2017-03-14
+=================
+  * [Fix] ensure wrappers are only applied once when `.use` is called multiple times.
+
 2.1.0 / 2016-10-04
 =================
   * [New] add support for `specify` as an alias to `it`
