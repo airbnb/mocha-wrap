@@ -75,6 +75,25 @@ describe('core MochaWrapper semantics', function () {
 		});
 	});
 
+  /**
+   * Temporarily replace describe so that we can assert on the passed params.
+   */
+	var originalDescribe = global.describe;
+	var passedDescription;
+	global.describe = function (description) {
+		passedDescription = description;
+		global.describe = originalDescribe; // revert to mocha's describe.
+		return originalDescribe.apply(this, arguments);
+	};
+
+	wrap()
+	.use(withFancyNoop)
+	.describe('wrapped descriptions', function () {
+		it('should pass', function () {
+			assert.equal(passedDescription, 'wrapped: (withFancyNoop):');
+		});
+	});
+
 	var calls = [];
 	describe('ordering of before/afters with multiple plugins', function () {
 		wrap().extend('first', {
