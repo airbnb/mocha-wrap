@@ -4,6 +4,7 @@
 	"extends": "@ljharb",
 
 	"rules": {
+		"func-name-matching": 0,
 		"id-length": 0,
 		"max-nested-callbacks": [2, 3],
 		"max-params": [2, 5],
@@ -12,6 +13,7 @@
 		"no-invalid-this": 0,
 		"no-magic-numbers": 0,
 		"no-shadow": 1,
+		"operator-linebreak": [2, "before"],
 		"sort-keys": 0
 	}
 }

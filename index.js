@@ -215,7 +215,9 @@ var isWithNameAvailable = function (name) {
 	return !has(MochaWrapper.prototype, name) || !isCallable(MochaWrapper.prototype[name]);
 };
 
-wrap.supportedMethods = isCallable(Object.freeze) ? Object.freeze(supportedMethods) : /* istanbul ignore next */ supportedMethods.slice();
+wrap.supportedMethods = isCallable(Object.freeze)
+	? Object.freeze(supportedMethods)
+	: /* istanbul ignore next */ supportedMethods.slice();
 
 MochaWrapper.prototype.extend = function extend(description, descriptor) {
 	checkThis(this);
