@@ -4,7 +4,7 @@ var assert = require('assert');
 var wrap = require('../../');
 
 describe('core MochaWrapper semantics', function () {
-	context('when there are no transformations', function () {
+	describe('when there are no transformations', function () {
 		it('throws when there are no transformations', function () {
 			assert['throws'](function () { wrap().describe('foo', function () {}); }, RangeError);
 			assert['throws'](function () { wrap().context('foo', function () {}); }, RangeError);
@@ -93,9 +93,9 @@ describe('core MochaWrapper semantics', function () {
 		});
 	});
 
-  /**
-   * Temporarily replace describe so that we can assert on the passed params.
-   */
+	/**
+	* Temporarily replace describe so that we can assert on the passed params.
+	*/
 	var originalDescribe = global.describe;
 	var passedDescription;
 	global.describe = function (description) {

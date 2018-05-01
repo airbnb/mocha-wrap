@@ -1,5 +1,8 @@
 {
 	"rules": {
+		"array-bracket-newline": 0,
+		"array-element-newline": 0,
+		"object-curly-newline": 0,
 		"indent": [2, 'tab', { "MemberExpression": 0 }],
 		"max-params": 0,
 		"max-nested-callbacks": [2, 5],
