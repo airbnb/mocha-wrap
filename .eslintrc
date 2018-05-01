@@ -8,7 +8,7 @@
 		"id-length": 0,
 		"max-nested-callbacks": [2, 3],
 		"max-params": [2, 5],
-		"max-statements": [2, 11],
+		"max-statements": [2, 12],
 		"max-statements-per-line": [2, { "max": 2 }],
 		"no-invalid-this": 0,
 		"no-magic-numbers": 0,

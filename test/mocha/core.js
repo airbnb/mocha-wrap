@@ -4,10 +4,18 @@ var assert = require('assert');
 var wrap = require('../../');
 
 describe('core MochaWrapper semantics', function () {
-	it('throws when there are no transformations', function () {
-		assert['throws'](function () { wrap().describe('foo', function () {}); }, RangeError);
-		assert['throws'](function () { wrap().context('foo', function () {}); }, RangeError);
-		assert['throws'](function () { wrap().it('foo', function () {}); }, RangeError);
+	context('when there are no transformations', function () {
+		it('throws when there are no transformations', function () {
+			assert['throws'](function () { wrap().describe('foo', function () {}); }, RangeError);
+			assert['throws'](function () { wrap().context('foo', function () {}); }, RangeError);
+			assert['throws'](function () { wrap().it('foo', function () {}); }, RangeError);
+		});
+
+		it('does not throw when the mode is "skip"', function () {
+			assert.doesNotThrow(function () { wrap().skip().describe('foo', function () {}); });
+			assert.doesNotThrow(function () { wrap().skip().context('foo', function () {}); });
+			assert.doesNotThrow(function () { wrap().skip().it('foo', function () {}); });
+		});
 	});
 
 	var withNothing = function withNothing() {
@@ -36,6 +44,16 @@ describe('core MochaWrapper semantics', function () {
 				afterEach: function () { flag = false; }
 			};
 		};
+
+		var withSkip = function withSkip() {
+			return this.skip().extend('i am skipped', {});
+		};
+
+		wrap()
+		.use(withSkip)
+		.it('skips a test when the plugin skips it', function () {
+			throw new SyntaxError('this should never run');
+		});
 
 		wrap()
 		.use(withTesting)
