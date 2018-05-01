@@ -27,12 +27,12 @@
 		"mocha": "npm run --silent mocha:standard && npm run --silent mocha:only",
 		"mocha:standard": "[ \"$MOCHAv1\" = true ] && mocha --ignore-leaks test/mocha || mocha test/mocha",
 		"mocha:only": "mocha test/mocha-only",
-		"install:mocha1.4": "npm install --silent mocha@1.4.1 && mocha --version",
-		"install:mocha1.x": "npm install --silent mocha@1.x && mocha --version",
-		"install:mocha2.0": "npm install --silent mocha@2.0.0 && mocha --version",
-		"install:mocha2.x": "npm install --silent mocha@2.x && mocha --version",
-		"install:mocha3.0": "npm install --silent mocha@3.0.0 && mocha --version",
-		"install:mocha3.x": "npm install --silent mocha@3.x && mocha --version",
+		"install:mocha1.4": "npm install --no-save --silent mocha@1.4.1 && mocha --version",
+		"install:mocha1.x": "npm install --no-save --silent mocha@1.x && mocha --version",
+		"install:mocha2.0": "npm install --no-save --silent mocha@2.0.0 && mocha --version",
+		"install:mocha2.x": "npm install --no-save --silent mocha@2.x && mocha --version",
+		"install:mocha3.0": "npm install --no-save --silent mocha@3.0.0 && mocha --version",
+		"install:mocha3.x": "npm install --no-save --silent mocha@3.x && mocha --version",
 		"mocha1.4": "npm run --silent install:mocha1.4 && MOCHAv1=true npm run --silent mocha",
 		"mocha1.x": "npm run --silent install:mocha1.x && MOCHAv1=true npm run --silent mocha",
 		"mocha2.0": "npm run --silent install:mocha2.0 && npm run --silent mocha",
@@ -82,6 +82,7 @@
 		"define-properties": "^1.1.2",
 		"for-each": "^0.3.2",
 		"function-bind": "^1.1.0",
+		"function.prototype.name": "^1.0.0",
 		"has": "^1.0.1",
 		"is-callable": "^1.1.3",
 		"is-primitive": "^2.0.0",
@@ -89,8 +90,7 @@
 		"is-symbol": "^1.0.1",
 		"isarray": "^1.0.0 || ^2.0.1",
 		"object-inspect": "^1.2.1",
-		"object.entries": "^1.0.4",
-		"function.prototype.name": "^1.0.0"
+		"object.entries": "^1.0.4"
 	},
 	"peerDependencies": {
 		"mocha": "^1.4.1 || ^2.0.0 || ^3.0.0"
