@@ -96,16 +96,16 @@
 		"mocha": "^1.4.1 || ^2.0.0 || ^3.0.0"
 	},
 	"devDependencies": {
-		"@ljharb/eslint-config": "^11.0.0",
-		"eslint": "^3.17.1",
+		"@ljharb/eslint-config": "^12.2.1",
+		"eslint": "^4.19.1",
 		"faucet": "^0.0.1",
 		"istanbul": "1.1.0-alpha.1",
-		"istanbul-lib-coverage": "^1.0.1",
+		"istanbul-lib-coverage": "^1.2.0",
 		"istanbul-merge": "^1.1.1",
 		"parallelshell": "^2.0.0",
-		"rimraf": "^2.6.1",
+		"rimraf": "^2.6.2",
 		"safe-publish-latest": "^1.1.1",
-		"tape": "^4.6.3"
+		"tape": "^4.9.0"
 	},
 	"engines": {
 		"node": ">= 0.4"
