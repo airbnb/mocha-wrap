@@ -1,3 +1,11 @@
+2.1.2 / 2018-05-01
+=================
+  * [Fix] ensure that skip works inside plugins, and plugins with no changes but the mode work
+  * [Deps] update `function-bind`, `function.prototype.name`, `object-inspect`
+  * [Dev Deps] update `eslint`, `@ljharb/eslint-config`, `tape`, `rimraf`, `istanbul-lib-coverage`
+  * [Tests] add --no-save to testing install commands
+  * [Tests] up to `node` `v10.0`, `v9.11`, `v8.11`, `v7.10`, `v6.14`, `v4.9`; use `nvm install-latest-npm`
+
 2.1.1 / 2017-03-14
 =================
   * [Fix] ensure wrappers are only applied once when `.use` is called multiple times.
